@@ -1,22 +1,11 @@
-# Code Assignments Repository
+# Coding Temple Bootcamp Assignments
 
-This repository contains my solutions to various coding challenges and assignments, mainly from the Codewars platform.
-
-## Challenges Included
-
-1. **Even or Odd**
-   Source: [Codewars Challenge](https://www.codewars.com/kata/53da3dbb4a5168369a0000fe)
-
-2. **Convert a Number to a String**
-   Source: [Codewars Challenge](https://www.codewars.com/kata/5265326f5fda8eb1160004c8)
-
-3. **Vowel Count**
-   Source: [Codewars Challenge](https://www.codewars.com/kata/54ff3102c1bad923760001f3)
+This repository contains the solutions and code developed during my participation in the Coding Temple bootcamp. The assignments cover a variety of topics in web development, programming, and other essential technical skills.
 
 ## Usage
 
-Clone the repository and review the solutions in your favorite code editor. Feel free to run and test them.
+Clone this repository and review the solutions in your favorite code editor. Feel free to run and test them to better understand the approaches used to solve each challenge.
 
 ## Contact
 
-For questions or suggestions, reach out via GitHub: [blazo-dev](https://github.com/blazo-dev).
+For any questions or suggestions, feel free to reach out via GitHub: [blazo-dev](https://github.com/blazo-dev).
