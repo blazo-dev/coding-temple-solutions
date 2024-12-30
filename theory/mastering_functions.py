@@ -74,11 +74,19 @@ greet()  # Output: Hello, Student!
 greet("Alice")  # Output: Hello, Alice!
 
 
-# *args: Allows passing a variable number of non-keyword arguments (received as a tuple).
-# **kwargs: Allows passing a variable number of keyword arguments (received as a dictionary).
+# Using *args for variable positional arguments
 def add_numbers(*args):
-    return sum(args)  # Sums all values passed as non-keyword arguments
+    return sum(args)  # Sums all the elements in 'args'
 
 
 print(add_numbers(1, 2, 3))  # Output: 6
 print(add_numbers(5, 10))  # Output: 15
+
+
+# Using **kwargs for variable keyword arguments
+def print_info(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+
+print_info(name="Alice", age=25)  # Output: name: Alice, age: 25
