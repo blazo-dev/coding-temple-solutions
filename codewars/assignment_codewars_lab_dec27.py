@@ -13,7 +13,5 @@ def number_to_string(num):
 # Solution 3: Vowel Count
 # Link: https://www.codewars.com/kata/54ff3102c1bad923760001f3
 def get_count(sentence):
-    # List of vowels
     vowels = ["a", "e", "i", "o", "u"]
-
     return sum(1 for letter in sentence if letter in vowels)
