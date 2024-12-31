@@ -11,9 +11,9 @@ Requirements:
     - The tasks should be stored in a Python list.
 
 - Core Features:
-    - Add tasks
-    - View tasks
-    - Delete tasks
+    - Add tasks ✅
+    - View tasks ✅
+    - Delete tasks ✅
     - Quit the application ✅
 
 - User Interaction:
@@ -23,8 +23,8 @@ Requirements:
     - Implement error handling using try, except, else, and finally blocks to catch errors. ✅
     - Alert the user if they provide invalid input. ✅
     - Alert the user if there are no tasks to view. ✅
-    - Alert the user if they try to delete a task that doesn't exist.
-    - Alert the user if they select an option on the main menu that doesn't exist.
+    - Alert the user if they try to delete a task that doesn't exist. ✅
+    - Alert the user if they select an option on the main menu that doesn't exist. ✅
 
 - Code Organization:
     - Organize your code into functions to improve clarity and maintainability. ✅
@@ -44,48 +44,53 @@ Good luck with your project!
 
 """
 
-import time
-
 
 # 🛠 Utility Functions
-def handle_option(option: int, tasks: list[dict]):
-    """Handle the selected option."""
+def handle_option(option: int, tasks: list):
+    """Handle the selected option using a hash table (dictionary)."""
+
     if option == 1:
-        time.sleep(1)
-        print("➕ Adding a task...")
-    elif option == 2:
-        time.sleep(1)
-        view_tasks(tasks)
+        add_task(tasks)
     elif option == 3:
-        time.sleep(1)
         view_tasks(tasks)
         delete_task(tasks)
     elif option == 4:
-        time.sleep(1)
-        print("\n👋 Thank you for using the To-Do List App! Have a productive day! 🚀")
-        exit()
-    else:
-        print("🚫 This should never happen.")
+        exit_application()
+
+    if option in [1, 2, 3]:
+        view_tasks(tasks)
+
+
+def exit_application():
+    """Displays a farewell message and exits the program."""
+    print("\n👋 Thank you for using the To-Do List App! Have a productive day! 🚀")
+    exit()
 
 
 # 📋 Menu Display
 def display_menu(menu_options: dict[int, str]):
     """Display the main menu with available options."""
-    time.sleep(1)
     print("\nWhat would you like to do now? 🤔")
     for i, option in menu_options.items():
         print(f"{i}. {option}")
-    time.sleep(1)
 
 
 # ➕ Add Task
-def add_task(tasks):
+def add_task(tasks: list[str]):
     """Prompt the user to enter a new task and add it to the list."""
-    pass
+
+    task_description = input("\n📝 Please enter the description for the new task: ")
+
+    if not task_description:
+        raise ValueError(
+            "❌ Task description cannot be empty. Please enter a valid description."
+        )
+
+    tasks.append(task_description)
 
 
 # 👀 View Tasks
-def view_tasks(tasks: list[dict]):
+def view_tasks(tasks: list[str]):
     """Display the tasks in the list or notify if the list is empty."""
     if len(tasks) == 0:
         raise ValueError(
@@ -93,22 +98,26 @@ def view_tasks(tasks: list[dict]):
         )
 
     print("\n📝 Here is the list of tasks:\n")
-    for task in tasks:
-        print(f"{task['id']} - {task['text']}")
+    for i in range(len(tasks)):
+        print(f"{i + 1}. {tasks[i]}")
 
 
 # ❌ Delete Task
-def delete_task(tasks: list[dict]):
+def delete_task(tasks: list[str]):
     """Allow the user to delete a specific task from the list."""
-    id_selected = get_valid_int("\n🔢 Select a task by entering the number: ")
-    tasks_ids = [task["id"] for task in tasks]
+    id_selected = get_valid_int("\n🗑️  Enter the task number to delete it: ")
+    id_selected -= 1
+    tasks_ids = [i for i in range(len(tasks))]
     validate_option(
         id_selected,
         tasks_ids,
-        "⚠️ The task you're trying to delete doesn't exist. Please select a valid task.",
+        f"⚠️  Task number {id_selected + 1} doesn't exist. Please select a valid task.",
     )
-    
-    
+
+    task_to_delete = tasks[id_selected]
+
+    tasks.remove(task_to_delete)
+    print(f"\n✅ Task '{task_to_delete}' has been deleted.")
 
 
 # ✅ Validations
@@ -137,25 +146,19 @@ def get_valid_int(prompt: str) -> int:
 # 🔢 Menu Options Setup
 def get_menu_options() -> dict[int, str]:
     return {
-        1: "➕ Add tasks",
-        2: "👀 View tasks",
-        3: "❌ Delete tasks",
-        4: "🚪 Quit",
+        1: "➕ Add a new task",
+        2: "👀 View your tasks",
+        3: "️❌ Remove a task",
+        4: "🚪 Exit the app",
     }
 
 
 # 🚀 Main Program
 def main():
     """Main function to run the To-Do List application."""
-    print("🎉 Welcome to the To-Do List Application! 🎉")
+    print("\n🎉 Welcome to the To-Do List Application! 🎉")
 
-    tasks: list[dict] = [
-        {"id": 1, "text": "🛒 Buy groceries"},
-        {"id": 2, "text": "📞 Call mom"},
-        {"id": 3, "text": "💻 Complete Python project"},
-        {"id": 4, "text": "🏋️‍♂️ Go to the gym"},
-        {"id": 5, "text": "📚 Read a book"},
-    ]
+    tasks: list[str] = []
 
     while True:
         menu_options = get_menu_options()
@@ -163,14 +166,13 @@ def main():
 
         try:
             option_selected = get_valid_int(
-                "\n🔢 Select an option by entering the number: "
+                "\n👉 Choose an option by entering its number: "
             )
             validate_option(option_selected, menu_options.keys())
 
             handle_option(option_selected, tasks)
         except (ValueError, KeyError) as e:
-            print(e)
-            time.sleep(1)
+            print(f"\n{e}")
             continue
 
 
