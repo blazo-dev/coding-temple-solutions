@@ -6,7 +6,7 @@ alphabetic characters and numeric digits that occur more than once in the input 
 The input string can be assumed to contain only alphabets (both uppercase and lowercase) and numeric digits.
 """
 
-from collections import Counter
+from collections import Counter 
 
 
 def duplicate_count(text: str):
